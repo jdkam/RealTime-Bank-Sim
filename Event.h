@@ -1,0 +1,63 @@
+#pragma once
+
+#include <iostream>
+#include <string>
+#include <locale>
+
+using namespace std;
+
+class Event
+{
+private:
+
+	//private member variables
+
+	int time;
+	
+	//length of transaction
+	int length;
+
+	string type;
+
+	int depatureTime = 0;
+
+	//arrival time to the start of transaction
+	//waittime = last depature time - arrival
+	int waitTime;
+
+
+public:
+
+	//default constructor
+	Event();
+
+	//******getters******
+	int getTime() const;
+
+	//arrival or departure event
+	//A for arrival
+	//D for departure
+	string getType() const;
+
+	int getLength() const;
+
+	int getDeparture() const;
+
+	int getWaitTime() const;
+	//******getters*****
+
+
+	//******setters******
+	void setTime(const int aTime);
+
+	void setType(const string aType);
+
+	void setLength(const int aLength);
+	//******setters******
+	
+	//******overloaded operators******
+	bool operator<(const Event &rhs);
+
+	friend ostream &operator<<(ostream &os, const Event &e);
+	//*******overloaded operators******
+};
