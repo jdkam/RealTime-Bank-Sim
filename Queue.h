@@ -40,32 +40,77 @@ public:
 	// Desc:  Returns true if and only if queue empty (O(1))
 	bool isEmpty() const;
 
-	void printQueue();
 
 	//Desc: Destructor
 	~Queue();
 
-	friend ostream &operator<<(ostream &os, const Queue &q);
+
+	template <class T>
+	friend ostream &operator<<(ostream &os, const Queue<T> &q);
 
 
 };
 
+template <class T>
+bool Queue<T>::enqueue(const T& newElement)
+{
+	elementCount++;
+	if (elementCount == capacity) //create new array
+	{
+		backindex = 0;
+		T *newArr = new int[capacity * 2];
+
+		for (int i = 0; i < elementCount; i++)
+		{
+			newArr[i] = elements[i]; // copy contents to new array
+			backindex++;
+		}
+		capacity = capacity * 2;                //update capacity
+
+		delete[] elements; //deallocate mem
+		elements = newArr; //point old array to new array
+
+		elements[backindex - 1] = newElement; //add element to queue
+
+
+		
+
+		return true;
+	}
+	else if (elementCount != capacity)
+	{
+		elements[backindex] = newElement;
+		backindex = (backindex + 1) % capacity;
+
+		return true;
+	}
+	else
+		return false;
+
+	
+} // enqueue
+
+
+
 
 template <class T>
-ostream &operator<<(ostream &os, const Queue<T> &q) {
-	cout << "[";
-	for (int i = q->frontindex; i < q->backindex; i++)
+ostream& operator<<(ostream &os, const Queue<T>& q){
+	os << "[";
+	for (int i = q.frontindex; i < q.backindex; i++)
 	{
-		cout << q->elements[i] << " ";
+		os << q.elements[i] << " ";
+		
 	}
-	cout << "]\n";
+	os << "]\n";
+
+	return os;
 }
 
 
 template <class T>
 Queue<T>::Queue() : elementCount(0), capacity(INITIAL_SIZE), frontindex(0), backindex(0)
 {
-	elements = new int[capacity];
+	elements = new T[capacity];
 } // constructor
 
 template <class T>
@@ -73,39 +118,16 @@ bool Queue<T>::dequeue()
 {
 	if (isEmpty())
 	{
-		cerr << "ERROR: QUEUE IS EMPTY!\n";
 		exit(1);
 	}
 
 	elementCount--;
 	frontindex = (frontindex + 1) % capacity;
 
-	//print array
-	cout << "***PRINTING QUEUE***\n\n";
-	cout << "{";
-	for (int i = frontindex; i < backindex; i++)
-	{
-
-		cout << elements[i] << " ";
-	}
-	cout << "}\n\n";
-
+	
 
 } // dequeue
 
-template <class T>
-void Queue<T>::printQueue()
-{
-
-	cout << "***PRINTING QUEUE***\n\n";
-	cout << "{";
-	for (int i = frontindex; i < backindex; i++)
-	{
-
-		cout << elements[i] << " ";
-	}
-	cout << "}\n";
-}
 
 template <class T>
 Queue<T>::~Queue()
@@ -119,7 +141,6 @@ T Queue<T>::peek() const throw(EmptyDataCollectionException)
 {
 	if (isEmpty())
 	{
-		cerr << "ERROR: Queue is empty!\n";
 		exit(1);
 	}
 	return elements[frontindex];
@@ -133,5 +154,7 @@ bool Queue<T>::isEmpty() const
 {
 	return elementCount == 0;
 } // isempty
+
+
 
 
