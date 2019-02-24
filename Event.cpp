@@ -1,7 +1,7 @@
 #include "Event.h"
 #include <iostream>
 
-Event::Event(): time(0), type("none"), length(0) {
+Event::Event(): time(0), type(' '), length(0) {
 
 }
 
@@ -10,7 +10,7 @@ int Event::getTime() const {
 	return time;
 }
 
-string Event::getType() const
+char Event::getType() const
 {
 	return type;
 }
@@ -19,20 +19,23 @@ int Event::getLength() const {
 	return length;
 }
 
+/*
 int Event::getDeparture() const {
 	return (length + time);
 }
+
 
 int Event::getWaitTime() const {
 	int departure = getDeparture();
 	return (departure - time);
 }
+*/
 
 void Event::setTime(int aTime) {
 	time = aTime;
 }
 
-void Event::setType(string aType) {
+void Event::setType(char aType) {
 	type = aType;
 }
 
@@ -42,7 +45,7 @@ void Event::setLength(int aLength) {
 
 bool Event::operator<(const Event &rhs)
 {
-	if (this->time < rhs.getTime())
+	if (this->type < rhs.getType())
 	{
 		return true;
 	}

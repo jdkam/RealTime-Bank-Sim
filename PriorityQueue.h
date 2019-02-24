@@ -115,6 +115,34 @@ bool PriorityQueue<T>::isEmpty() const {
 // Time Efficiency: O(n)
 template <class T>
 bool PriorityQueue<T>::enqueue(const T& newElement) {
+	
+	if (isEmpty()) //first node created
+	{
+		head = new Node<T>(newElement, nullptr);
+		elementCount++;
+		return true;
+	}
+	
+	//traverse to find smallest value in list
+	Node<T> * curr;
+	curr = head;
+
+	if (newElement < head->data) //if element is smaller than the head
+	{
+		head = new Node<T>(newElement, head);
+		elementCount++;
+		return true;
+	}
+
+	while (curr->next != NULL && curr->next->data < newElement)
+	{
+		curr = curr->next;
+	}
+
+	Node<T> *newNode = new Node<T>(newElement, curr->next);
+	curr->next = newNode;
+	elementCount++;
+	return true;
 
 }
 

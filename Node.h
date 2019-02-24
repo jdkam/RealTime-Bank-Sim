@@ -20,12 +20,32 @@ class Node
 public:
 	// Public data members - Why are the data members public?
 	T data;     // The data in the node
-	int priority;
 	Node<T>* next;   // Pointer to next node
 
 	// Constructors
 	Node();
-	Node(T theData, int thePriority);
+	Node(T theData);
 	Node(T theData, Node<T>* theNextNode);
 
 }; // end Node
+
+template <class T>
+Node<T>::Node()
+{
+	data = 0;
+	next = NULL;
+}
+
+template <class T>
+Node<T>::Node(T theData)
+{
+	data = theData;
+	next = NULL;
+}
+
+template <class T>
+Node<T>::Node(T theData, Node<T>* theNextNode)
+{
+	data = theData;
+	next = theNextNode;
+}

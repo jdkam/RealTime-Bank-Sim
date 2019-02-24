@@ -5,6 +5,7 @@ Customers come in and have an arrival time and departure time
 
 #include "Event.h"
 #include "Queue.h"
+#include "PriorityQueue.h"
 
 int main()
 {
@@ -12,29 +13,27 @@ int main()
 	Event myevent;
 	Queue<int> myq;
 	Queue<Event> mye;
+	PriorityQueue<int> mypq;
 
 	
 	myevent.setLength(6);
 	myevent.setTime(20);
-	myevent.setType("A");
+	myevent.setType('A');
 
 	cout << myevent.getTime() << endl;
-	cout << myevent.getDeparture() << endl;
-	cout << myevent.getWaitTime() << endl;
-
-	for (int i = 1; i <= 5; i++) {
-		myq.enqueue(i);
-	}
-
-	cout << myq;
-
-	for (int k = 0; k < 2; k++)
-	{
-		cout << "\nDequeing: " << myq.peek();
-		myq.dequeue();
-	}
 	
-	cout << myq;
+	for (int i = 5; i >=0 ; i--)
+	{
+		mypq.enqueue(i);
+	}
+
+	for (int k = 0; k <= 3; k++)
+	{
+		mypq.dequeue();
+	}
+
+	cout << mypq;
+	
 
 	return 0;
 }

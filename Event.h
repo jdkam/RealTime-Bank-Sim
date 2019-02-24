@@ -17,7 +17,7 @@ private:
 	//length of transaction
 	int length;
 
-	string type;
+	char type;
 
 	int depatureTime = 0;
 
@@ -37,20 +37,21 @@ public:
 	//arrival or departure event
 	//A for arrival
 	//D for departure
-	string getType() const;
+	char getType() const;
 
 	int getLength() const;
 
-	int getDeparture() const;
 
-	int getWaitTime() const;
+	//int getDeparture() const;
+
+	//int getWaitTime() const;
 	//******getters*****
 
 
 	//******setters******
 	void setTime(const int aTime);
 
-	void setType(const string aType);
+	void setType(const char aType);
 
 	void setLength(const int aLength);
 	//******setters******
