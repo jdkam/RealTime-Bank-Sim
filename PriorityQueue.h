@@ -66,7 +66,7 @@ public:
 	// Postcondition: This Priority Queue is unchanged.
 	// Exceptions: Throws EmptyDataCollectionException if this Priority Queue is empty.
 	// Time Efficiency: O(1)
-	T peek() const throw(EmptyDataCollectionException);
+	T& peek() noexcept(false);
 
 	template <class T>
 	friend ostream& operator<<(ostream & os, const PriorityQueue<T>& p);
@@ -85,13 +85,23 @@ PriorityQueue<T>::PriorityQueue()
 template <class T>
 PriorityQueue<T>::PriorityQueue(const PriorityQueue& rhsPriorityQueue)
 {
-	PriorityQueue p = rhsPriorityQueue;
+	
 }
 
 // Destructor
 template <class T>
 PriorityQueue<T>::~PriorityQueue() {
+	Node<T> * curr;
+	Node<T> * next;
+	curr = head;
 
+	while (curr != NULL)
+	{
+		next = curr->next;
+		delete curr;
+		curr = next;
+	}
+	head = NULL;
 }
 
 // Description: Returns the number of elements in the Priority Queue.
@@ -171,7 +181,7 @@ bool PriorityQueue<T>::dequeue() {
 // Exceptions: Throws EmptyDataCollectionException if this Priority Queue is empty.
 // Time Efficiency: O(1)
 template <class T>
-T PriorityQueue<T>::peek() const throw(EmptyDataCollectionException) {
+T &PriorityQueue<T>::peek() {
 
 	if (isEmpty())
 	{

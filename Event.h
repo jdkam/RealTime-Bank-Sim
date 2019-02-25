@@ -57,7 +57,9 @@ public:
 	//******setters******
 	
 	//******overloaded operators******
-	bool operator<(const Event &rhs);
+	friend bool operator<(Event a, Event d);
+
+	friend bool operator>(Event d, Event a);
 
 	friend ostream &operator<<(ostream &os, const Event &e);
 	//*******overloaded operators******

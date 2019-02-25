@@ -21,7 +21,7 @@ public:
 
 
 	// Desc:  Inserts element x at the back (O(1))
-	bool enqueue(const T& newElement);
+	bool enqueue(T newElement);
 
 
 	// Desc:  Removes the frontmost element (O(1))
@@ -34,7 +34,7 @@ public:
    // Postcondition: This Queue is unchanged.
    // Exceptions: Throws EmptyDataCollectionException if this Queue is empty.
    // Time Efficiency: O(1)
-	T peek() const throw(EmptyDataCollectionException);
+	T &peek(const EmptyDataCollectionException &) const;
 
 
 	// Desc:  Returns true if and only if queue empty (O(1))
@@ -52,41 +52,33 @@ public:
 };
 
 template <class T>
-bool Queue<T>::enqueue(const T& newElement)
+bool Queue<T>::enqueue(T newElement)
 {
-	elementCount++;
-	if (elementCount == capacity) //create new array
-	{
-		backindex = 0;
-		T *newArr = new int[capacity * 2];
+	int count = elementCount;
 
-		for (int i = 0; i < elementCount; i++)
+	if (elementCount == capacity) 
+	{
+		int newCapacity = capacity * 2;  //double capacity
+		auto arr = new T[newCapacity]; //allocate new dynamic array with new capacity
+		int j = 0;
+
+		for (int i = frontindex; j < capacity; i = (i + 1) % capacity) 
 		{
-			newArr[i] = elements[i]; // copy contents to new array
-			backindex++;
+			arr[j] = elements[i];
+			j++;
 		}
-		capacity = capacity * 2;                //update capacity
-
-		delete[] elements; //deallocate mem
-		elements = newArr; //point old array to new array
-
-		elements[backindex - 1] = newElement; //add element to queue
-
-
+		delete[] elements;    //delete old queue
 		
-
-		return true;
+		elements = arr;
+		backindex = capacity;
+		capacity = newCapacity;
+		frontindex = 0;
 	}
-	else if (elementCount != capacity)
-	{
-		elements[backindex] = newElement;
-		backindex = (backindex + 1) % capacity;
 
-		return true;
-	}
-	else
-		return false;
-
+	elementCount++;
+	elements[backindex] = newElement;    //Insert the new element
+	backindex = (backindex + 1) % capacity;
+	return elementCount > count; //returns true if an elements was added
 	
 } // enqueue
 
@@ -116,15 +108,33 @@ Queue<T>::Queue() : elementCount(0), capacity(INITIAL_SIZE), frontindex(0), back
 template <class T>
 bool Queue<T>::dequeue()
 {
+	int count = elementCount;
+
 	if (isEmpty())
 	{
-		exit(1);
+		exit(-1);
 	}
 
+	if (elementCount <capacity / 4 && elementCount / 4 > INITIAL_SIZE)
+	{
+		T * arr = new T[capacity / 4];
+		int k = 0;
+		for (int i = frontindex; k < capacity; i = (i + 1) % capacity)
+		{
+			arr[k] = elements[i];
+			k++;
+		}
+		delete elements;
+		elements = arr;
+		frontindex = (frontindex + 1) % capacity;
+		return elementCount < count;
+	}
 	elementCount--;
 	frontindex = (frontindex + 1) % capacity;
-
+	return elementCount < count;
 	
+
+	return true;
 
 } // dequeue
 
@@ -137,11 +147,15 @@ Queue<T>::~Queue()
 
 
 template <class T>
-T Queue<T>::peek() const throw(EmptyDataCollectionException)
+T &Queue<T>::peek(const EmptyDataCollectionException &) const
 {
-	if (isEmpty())
+	try {
+		if (isEmpty())
+			throw EmptyDataCollectionException("Error the queue is empty\n");
+		}
+	catch (EmptyDataCollectionException& p)
 	{
-		exit(1);
+		cout << p.what();
 	}
 	return elements[frontindex];
 } // top
