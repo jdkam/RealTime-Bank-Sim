@@ -27,25 +27,21 @@ int main()
 	cout << "Simulation Begins\n";
 	Queue<Event> BankLine;
 	PriorityQueue<Event> EventQueue;
-	
-	ifstream file;
-	file.open("simulationShuffled1.in");
-
-	if (!file)
-	{
-		cerr << "Error opening file\n";
-		exit(-1);
-	}
 
 	int arrival, pLength;
 	Event arriveEvent, departEvent;
+	int input;
 
-	while (!file.eof())
+	while (cin >> input)
 	{
-		file >> arrival; //read arrival time
+		arrival = input; //read arrival time
 		arriveEvent.setTime(arrival); //set arrival time
-		file >> pLength; //read length of transcation
+
+		cin >> input;
+
+		pLength = input; //read length of transcation
 		arriveEvent.setLength(pLength); //set length
+
 		arriveEvent.setType('A'); //set type
 		EventQueue.enqueue(arriveEvent); //push the event into the event queue
 	}

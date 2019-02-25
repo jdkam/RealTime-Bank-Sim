@@ -52,10 +52,7 @@ public:
 	//Desc: Destructor
 	~Queue();
 
-	//overloaded << operator: prints queue
-	template <class T>
-	friend ostream &operator<<(ostream &os, const Queue<T> &q);
-
+	
 
 };
 
@@ -68,7 +65,7 @@ bool Queue<T>::enqueue(T newElement)
 	if (elementCount == capacity) 
 	{
 		int newCapacity = capacity * 2;  //double capacity
-		auto arr = new T[newCapacity]; //allocate new dynamic array with new capacity
+		T * arr = new T[newCapacity]; //allocate new dynamic array with new capacity
 		int j = 0;
 
 		for (int i = frontindex; j < capacity; i = (i + 1) % capacity) 
@@ -90,23 +87,6 @@ bool Queue<T>::enqueue(T newElement)
 	return elementCount > count; //returns true if an elements was added
 	
 } // enqueue
-
-
-
-//overloaded << operator, prints queue
-template <class T>
-ostream& operator<<(ostream &os, const Queue<T>& q){
-	os << "[";
-	for (int i = q.frontindex; i < q.backindex; i++)
-	{
-		os << q.elements[i] << " ";
-		
-	}
-	os << "]\n";
-
-	return os;
-}
-
 
 template <class T>
 Queue<T>::Queue() : elementCount(0), capacity(INITIAL_SIZE), frontindex(0), backindex(0)

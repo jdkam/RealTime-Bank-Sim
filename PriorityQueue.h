@@ -66,10 +66,27 @@ public:
 	// Postcondition: This Priority Queue is unchanged.
 	// Exceptions: Throws EmptyDataCollectionException if this Priority Queue is empty.
 	// Time Efficiency: O(1)
-	T& peek() noexcept(false);
+	T peek() const throw(EmptyDataCollectionException());
 
-	template <class T>
-	friend ostream& operator<<(ostream & os, const PriorityQueue<T>& p);
+	// To deal with the warning regarding template and friend function: 
+   // I used the first "Introvert" solution described in 
+   // https://stackoverflow.com/questions/4660123/overloading-friend-operator-for-template-class
+   // The idea: only declare a particular instantiation of the << operator as a friend
+   // by inlining the operator.  
+   friend ostream & operator<< (ostream & os, const PriorityQueue<T>& rhs) {
+      Node<T>* current = rhs.head;
+
+      os << "elementCount = " << rhs.elementCount;
+      
+      // Traverse the list
+      while (current != NULL){
+         cout << current -> data; // Print data
+         current = current -> next; // Go to next Node
+      }
+
+      return os;
+   } // end of operator <<
+
 
 }; // end PriorityQueue
 
@@ -128,7 +145,7 @@ bool PriorityQueue<T>::enqueue(const T& newElement) {
 	
 	if (isEmpty()) //first node created
 	{
-		head = new Node<T>(newElement, nullptr);
+		head = new Node<T>(newElement, NULL);
 		elementCount++;
 		return true;
 	}
@@ -181,7 +198,7 @@ bool PriorityQueue<T>::dequeue() {
 // Exceptions: Throws EmptyDataCollectionException if this Priority Queue is empty.
 // Time Efficiency: O(1)
 template <class T>
-T &PriorityQueue<T>::peek() {
+T PriorityQueue<T>::peek() const throw(EmptyDataCollectionException()) {
 
 	if (isEmpty())
 	{
@@ -190,15 +207,4 @@ T &PriorityQueue<T>::peek() {
 	return head->data;
 }
 
-template<class T>
-ostream& operator<<(ostream & os, const PriorityQueue<T>& p) {
 
-	Node<T>* curr = p.head;
-
-	while (curr != NULL) {
-		os << curr->data << " ";
-		curr = curr->next;
-	}
-
-	return os;
-}
