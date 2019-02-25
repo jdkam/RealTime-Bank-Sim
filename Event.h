@@ -1,3 +1,9 @@
+/*
+Event.h
+Desc: Class implementation for an Event driven simulation
+Author: Jordan Kam
+Date: Feb 24, 2019
+*/
 #pragma once
 
 #include <iostream>
@@ -13,18 +19,8 @@ private:
 	//private member variables
 
 	int time;
-	
-	//length of transaction
 	int length;
-
 	char type;
-
-	int depatureTime = 0;
-
-	//arrival time to the start of transaction
-	//waittime = last depature time - arrival
-	int waitTime;
-
 
 public:
 
@@ -39,28 +35,28 @@ public:
 	//D for departure
 	char getType() const;
 
+	//length of transcation
 	int getLength() const;
 
-
-	//int getDeparture() const;
-
-	//int getWaitTime() const;
-	//******getters*****
+	//******END getters*****
 
 
 	//******setters******
-	void setTime(const int aTime);
+	void setTime(const int aTime); //sets the time
 
-	void setType(const char aType);
+	void setType(const char aType); //sets the type
 
-	void setLength(const int aLength);
-	//******setters******
+	void setLength(const int aLength); //sets the length
+	//******end setters******
 	
 	//******overloaded operators******
+	//desc: overloaded < operator, used for comparing event times and type
 	friend bool operator<(Event a, Event d);
 
+	//desc: overloaded < operator, used for comparing event times and type
 	friend bool operator>(Event d, Event a);
 
+	//overloaded << operator used for printing events easily
 	friend ostream &operator<<(ostream &os, const Event &e);
 	//*******overloaded operators******
 };

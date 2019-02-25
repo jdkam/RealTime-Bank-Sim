@@ -4,12 +4,12 @@
  * Description: Priority Queue
  * Class Invariant: The elements stored in this Priority Queue are always sorted.
  *
- * Author: Inspired by Frank M. Carrano and Tim Henry (textbook).
- * Modified: February 2019
+ * Credits to: Inspired by Frank M. Carrano and Tim Henry (textbook).
+	Author: Jordan Kam
+ * Modified: Feb 24, 2019
  *
  */
 
- /* None of the current content of this file can be modified. */
 
 #pragma once
 

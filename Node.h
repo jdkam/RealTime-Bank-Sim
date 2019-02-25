@@ -5,8 +5,8 @@
  *                   in which the data is of "int" data type.
  *                   Designed and implemented as a non-ADT.
  *
- * Created on:
- * Author:
+ * Created on: Feb 24, 2019
+ * Author: Jordan Kam
  */
 
  // #pragma once is shorthand for the 2 #include guards we've seen before:

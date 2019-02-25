@@ -1,5 +1,12 @@
 /*
-Desc: Used for testing the event simulation of a bank
+SimApp.cpp
+Desc: An event driven simulation model for simulating a bankline
+It will output arrival and departure times of customers
+and calculate the average wait time and number of customers the bank has served
+
+Author: Jordan Kam
+Date created: Feb 22, 2019
+Last modified: Feb 24, 2019
 */
 
 

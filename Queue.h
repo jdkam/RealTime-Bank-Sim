@@ -1,3 +1,11 @@
+/*
+Queue.h
+Desc: Template class ADT Queue implemented using arrays
+Queue has size management capability when elementcount takes up 1/4 of capacity
+Author: Jordan Kam
+Date: Feb 24, 2019
+*/
+
 #pragma once
 #include <iostream>
 #include <string>
@@ -20,7 +28,7 @@ public:
 	Queue();
 
 
-	// Desc:  Inserts element x at the back (O(1))
+	// Desc:  Inserts element newElement at the back (O(1))
 	bool enqueue(T newElement);
 
 
@@ -44,13 +52,14 @@ public:
 	//Desc: Destructor
 	~Queue();
 
-
+	//overloaded << operator: prints queue
 	template <class T>
 	friend ostream &operator<<(ostream &os, const Queue<T> &q);
 
 
 };
 
+// Desc:  Inserts element x at the back (O(1))
 template <class T>
 bool Queue<T>::enqueue(T newElement)
 {
@@ -84,7 +93,7 @@ bool Queue<T>::enqueue(T newElement)
 
 
 
-
+//overloaded << operator, prints queue
 template <class T>
 ostream& operator<<(ostream &os, const Queue<T>& q){
 	os << "[";
@@ -105,6 +114,8 @@ Queue<T>::Queue() : elementCount(0), capacity(INITIAL_SIZE), frontindex(0), back
 	elements = new T[capacity];
 } // constructor
 
+// Desc:  Removes the frontmost element (O(1))
+//  Pre:  Queue not empty
 template <class T>
 bool Queue<T>::dequeue()
 {
@@ -112,7 +123,7 @@ bool Queue<T>::dequeue()
 
 	if (isEmpty())
 	{
-		exit(-1);
+		return false;
 	}
 
 	if (elementCount <capacity / 4 && elementCount / 4 > INITIAL_SIZE)
@@ -138,14 +149,16 @@ bool Queue<T>::dequeue()
 
 } // dequeue
 
-
+//desctructor: O(1), deletes dynamic mem
 template <class T>
 Queue<T>::~Queue()
 {
 	delete[] elements;
 }
 
-
+//desc:peeks at the front of the queue
+//pre: throws exception if queue is empty
+//post: returns element at front of queue
 template <class T>
 T &Queue<T>::peek(const EmptyDataCollectionException &) const
 {
@@ -159,8 +172,6 @@ T &Queue<T>::peek(const EmptyDataCollectionException &) const
 	}
 	return elements[frontindex];
 } // top
-
-
 
 // Desc:  Returns true if and only if queue empty (O(1))
 template <class T>

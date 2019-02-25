@@ -1,11 +1,19 @@
+/*
+Event.cpp
+Desc: Class implementation for an Event driven simulation
+Author: Jordan Kam
+Date: Feb 24, 2019
+*/
+
 #include "Event.h"
 #include <iostream>
 
+//default constructor
 Event::Event(): time(0), type(0), length(0) {
 
 }
 
-
+//****getters
 int Event::getTime() const {
 	return time;
 }
@@ -18,8 +26,9 @@ char Event::getType() const
 int Event::getLength() const {
 	return length;
 }
+//****end getters
 
-
+//****setters
 void Event::setTime(int aTime) {
 	time = aTime;
 }
@@ -36,7 +45,9 @@ void Event::setType(char aType) {
 void Event::setLength(int aLength) {
 	length = aLength;
 }
+//****end setters
 
+//desc: overloaded < operator, used for comparing event times and type
 bool operator<(Event a, Event d) {
 	if (a.getTime() != d.getTime())
 	{
@@ -51,7 +62,7 @@ bool operator<(Event a, Event d) {
 			return false;
 }
 
-
+//overloaded > operator, used for comparing event times and type
 bool operator>(Event d, Event a) {
 	if (a.getTime() != d.getTime())
 	{
@@ -66,7 +77,7 @@ bool operator>(Event d, Event a) {
 			return false;
 }
 
-
+//overloaded << operator: used for printing event easily
 ostream &operator<<(ostream &os, const Event &e)
 {
 
