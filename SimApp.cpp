@@ -6,10 +6,10 @@ Desc: Used for testing the event simulation of a bank
 #include "EmptyDataCollectionException.h"
 #include "PriorityQueue.h"
 #include "Queue.h"
-#include <iostream>
-#include <fstream>
 #include "Event.h"
 #include "Node.h"
+#include <iostream>
+#include <fstream>
 
 int main()
 {
