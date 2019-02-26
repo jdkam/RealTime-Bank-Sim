@@ -66,7 +66,7 @@ public:
 	// Postcondition: This Priority Queue is unchanged.
 	// Exceptions: Throws EmptyDataCollectionException if this Priority Queue is empty.
 	// Time Efficiency: O(1)
-	T peek() const throw(EmptyDataCollectionException());
+	T peek() const throw(EmptyDataCollectionException);
 
 	// To deal with the warning regarding template and friend function: 
    // I used the first "Introvert" solution described in 
@@ -198,7 +198,7 @@ bool PriorityQueue<T>::dequeue() {
 // Exceptions: Throws EmptyDataCollectionException if this Priority Queue is empty.
 // Time Efficiency: O(1)
 template <class T>
-T PriorityQueue<T>::peek() const throw(EmptyDataCollectionException()) {
+T PriorityQueue<T>::peek() const throw(EmptyDataCollectionException) {
 
 	if (isEmpty())
 	{
