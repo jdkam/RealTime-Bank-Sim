@@ -52,7 +52,14 @@ int main()
 
 	while (!EventQueue.isEmpty())
 	{
-		newEvent = EventQueue.peek();
+		try
+		{
+			newEvent = EventQueue.peek();
+		}
+		catch (EmptyDataCollectionException& e)
+		{
+			std::cout << e.what();
+		}
 		Event client = newEvent;
 		currTime = client.getTime();
 
@@ -84,7 +91,15 @@ int main()
 			EventQueue.dequeue();
 			if (!BankLine.isEmpty())
 			{ //calculate next client departure time
-				client = BankLine.peek(EmptyDataCollectionException());
+				try //try peeking, throw exception if fails
+				{
+					client = BankLine.peek();
+				}
+				catch(EmptyDataCollectionException& p)
+				{
+					cout << p.what();
+				}
+				
 				BankLine.dequeue();
 				departEvent.setType('D');
 				int departTime = currTime + client.getLength();
