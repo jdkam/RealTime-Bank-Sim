@@ -42,7 +42,7 @@ public:
    // Postcondition: This Queue is unchanged.
    // Exceptions: Throws EmptyDataCollectionException if this Queue is empty.
    // Time Efficiency: O(1)
-	T &peek(const EmptyDataCollectionException &) const;
+	T peek() const throw(EmptyDataCollectionException);
 
 
 	// Desc:  Returns true if and only if queue empty (O(1))
@@ -139,17 +139,13 @@ Queue<T>::~Queue()
 //desc:peeks at the front of the queue
 //pre: throws exception if queue is empty
 //post: returns element at front of queue
-template <class T>
-T &Queue<T>::peek(const EmptyDataCollectionException &) const
+T Queue<T>::peek() const throw(EmptyDataCollectionException)
 {
-	try {
-		if (isEmpty())
-			throw EmptyDataCollectionException("Error the queue is empty\n");
-		}
-	catch (EmptyDataCollectionException& p)
+	if (isEmpty())
 	{
-		cout << p.what();
+		throw EmptyDataCollectionException("Error the queue is empty\n");
 	}
+		
 	return elements[frontindex];
 } // top
 
