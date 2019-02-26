@@ -55,11 +55,12 @@ int main()
 		try
 		{
 			newEvent = EventQueue.peek();
+
 		}
-		catch (EmptyDataCollectionException& e)
-		{
-			std::cout << e.what();
+		catch(EmptyDataCollectionException &e){
+			cout << e.what();
 		}
+		
 		Event client = newEvent;
 		currTime = client.getTime();
 
@@ -72,7 +73,14 @@ int main()
 				int departTime = currTime + newEvent.getLength();
 				departEvent.setTime(departTime);
 				departEvent.setLength(0);
-				cout << "Processing an arrival event at time: " << currTime << endl;
+				if(currTime >= 10)
+				{
+					cout << "Processing an arrival event at time:   " << currTime << endl;
+
+				}
+				else
+				cout << "Processing an arrival event at time:    " << currTime << endl;
+
 				EventQueue.enqueue(departEvent);
 				tellerOpen = false;
 				customerCount++;
@@ -80,26 +88,41 @@ int main()
 			}
 			else
 			{
-				cout << "Processing an arrival event at time: " << currTime << endl;
+				if(currTime >= 10)
+				{
+					cout << "Processing an arrival event at time:   " << currTime << endl;
+
+				}
+				else
+				cout << "Processing an arrival event at time:    " << currTime << endl;
+
 				customerCount++;
 				BankLine.enqueue(client);
 			}
 		}
 		else //departure event
 		{
-			cout << "Processing a departure event at time: " << currTime << endl;
+			if(currTime >=10)
+			{
+				cout << "Processing a departure event at time:  " << currTime << endl;
+
+			}
+			else
+			cout << "Processing a departure event at time:   " << currTime << endl;
+			
 			EventQueue.dequeue();
 			if (!BankLine.isEmpty())
 			{ //calculate next client departure time
-				try //try peeking, throw exception if fails
+
+				try
 				{
 					client = BankLine.peek();
 				}
-				catch(EmptyDataCollectionException& p)
+				catch(EmptyDataCollectionException &p)
 				{
 					cout << p.what();
 				}
-				
+
 				BankLine.dequeue();
 				departEvent.setType('D');
 				int departTime = currTime + client.getLength();

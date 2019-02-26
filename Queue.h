@@ -139,15 +139,17 @@ Queue<T>::~Queue()
 //desc:peeks at the front of the queue
 //pre: throws exception if queue is empty
 //post: returns element at front of queue
+template <class T>
 T Queue<T>::peek() const throw(EmptyDataCollectionException)
 {
-	if (isEmpty())
-	{
-		throw EmptyDataCollectionException("Error the queue is empty\n");
-	}
-		
+	
+		if (isEmpty())
+		{
+			throw EmptyDataCollectionException("Error the queue is empty\n");
+		}
+	
 	return elements[frontindex];
-} // top
+}
 
 // Desc:  Returns true if and only if queue empty (O(1))
 template <class T>
